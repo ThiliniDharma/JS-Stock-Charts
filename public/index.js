@@ -61,18 +61,24 @@ async function main() {
     });
     
     //Highest Stock Price chart
+
+    // new Chart(highestPriceChartCanvas.getContext('2d'), {
+    //     type: 'bar',
+    //     data: {
+    //         labels: [stocks[0].meta.symbol, stocks[1].meta.symbol,  stocks[2].meta.symbol ,stocks[3].meta.symbol],
+    //         datasets: stocks.map( stock => ({
+    //             label: 'Highest',
+    //             data: stock.values.map(value => parseFloat(value.high)),
+    //             backgroundColor:  getColor(stock.meta.symbol),
+    //             borderColor: getColor(stock.meta.symbol),
+    //         }))
+    //     }
+    // });
+
+    //Highest Stock Price chart
     new Chart(highestPriceChartCanvas.getContext('2d'), {
         type: 'bar',
-        data: {
-        //    labels: [stocks[0].meta.symbol, stocks[1].meta.symbol,  stocks[2].meta.symbol ,stocks[3].meta.symbol],
-        //    label: 'Highest',
-        //    data: stocks.values.map(value => parseFloat(value.high)),
-        //    backgroundColor:  getColor(stocks.meta.symbol),
-        //    borderColor: getColor(stocks.meta.symbol),
-       
-            
-
-
+        data: {       
            labels: stocks.map(stock => stock.meta.symbol),
            datasets:  [{
                label: 'Highest',
@@ -128,9 +134,10 @@ function getColor(stock){
 
 function getHighestval(values)
 {
-let Highest = 0;
-    const Values =  values.map(value => parseFloat(value.high))
-    let sortedValues  = Values.sort(function(a, b){return b - a});
+    let Highest = 0;
+    const Values =  values.map(value => parseFloat(value.high));//get highest value and stored in to an array
+    //console.log(Values);
+    let sortedValues  = Values.sort(function(a, b){return b - a});//sorting array elements highest to lowest
     Highest = sortedValues[0];
 
     return Highest;
@@ -138,6 +145,16 @@ let Highest = 0;
 
 function calcAverage(values)
 {
-
+    let total = 0;
+    const arr= values.map(value => parseFloat(value.high));//get highest value and stored in to an array
+    for(let i = 0; i < arr.length; i++) {
+       total+=arr[i];//calculate total in the array 
+    }
+    let avg = total / arr.length;
+    return avg;
 }
 main()
+
+
+
+
